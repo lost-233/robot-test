@@ -13,23 +13,22 @@ import java.util.List;
 /**
  * @author zm
  */
-public class ClickOnImplement extends CommonImplement{
+public class RightClickImplement extends CommonImplement{
     @Override
     public boolean implement(Robot robot, OperationCommand command) {
         List<ImageXyBean> list = ImageCognitionUtil.findImageForScreen(PathUtil.getPath()+"cmd/" + command.getCommandContent(), command.getSim());
         if (CollectionUtils.isEmpty(list)) {
-            System.out.println("未找到"+command.getCommandContent());
             return false;
         }
         ImageXyBean imgXy = list.get(0);
         robot.mouseMove(imgXy.x,imgXy.y);
-        robot.mousePress(KeyEvent.BUTTON1_DOWN_MASK);
-        robot.mouseRelease(KeyEvent.BUTTON1_DOWN_MASK);
+        robot.mousePress(KeyEvent.BUTTON3_DOWN_MASK);
+        robot.mouseRelease(KeyEvent.BUTTON3_DOWN_MASK);
         return true;
     }
 
     @Override
     public int method() {
-        return 1;
+        return 3;
     }
 }

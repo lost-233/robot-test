@@ -14,10 +14,12 @@ public class ComUtils {
         try {
             Process process = Runtime.getRuntime().exec(command);
             InputStreamReader rd = new InputStreamReader(process.getInputStream());
-            BufferedReader input = new BufferedReader(rd);
             StringBuilder builder = new StringBuilder();
-            while (input.readLine() != null) {
-                builder.append(input.readLine());
+            if (rd.ready()) {
+                BufferedReader input = new BufferedReader(rd);
+                while (input.readLine() != null) {
+                    builder.append(input.readLine());
+                }
             }
             return builder.toString();
         } catch (IOException e) {

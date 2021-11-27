@@ -6,8 +6,14 @@ package com.zhaoming.test.util;
 import com.zhaoming.test.bean.ImageXyBean;
 import com.zhaoming.test.bean.RgbImageComparerBean;
 
-import java.awt.Color;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +25,38 @@ public class ImageCognitionUtil {
 	public static final int SIM_BLUR = 61;
 	public static final int SIM_BLUR_VERY = 81;
 
+
+	public static List<ImageXyBean> findImageForScreen(String file, int sim) {
+
+		try {
+
+			//获取屏幕宽和高
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			int w = (int) screenSize.getWidth();
+			int h = (int) screenSize.getHeight();
+			Robot robot = new Robot();
+			//全屏截图
+			BufferedImage screenImg = robot.createScreenCapture(new Rectangle(0, 0, w, h));
+			/*OutputStream out = new FileOutputStream("E:\\robot-test/screenImg.png");
+			ImageIO.write(screenImg, "png", out);*/
+			//将截到的BufferedImage写到本地
+
+			InputStream inputStream = new FileInputStream(file);
+			BufferedImage searchImg = ImageIO.read(inputStream);
+			//将要查找的本地图读到BufferedImage
+			//图片识别工具类
+			ImageCognitionUtil ic = new ImageCognitionUtil();
+			List<ImageXyBean> imageXyBeans = ic.imageSearch(screenImg, searchImg, sim);
+			imageXyBeans.forEach(imageXyBean -> {
+				imageXyBean.x = imageXyBean.x+(searchImg.getWidth()/2);
+				imageXyBean.y = imageXyBean.y+(searchImg.getHeight()/2);
+			});
+			return imageXyBeans;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public List<ImageXyBean> imageSearch(BufferedImage sourceImage, BufferedImage searchImage, int sim) {
 		List<ImageXyBean> list = new ArrayList<ImageXyBean>();
 
@@ -121,6 +159,7 @@ public class ImageCognitionUtil {
 						img.x = x;
 						img.y = y;
 						list.add(img);
+						return list;
 					}
 				}
 			}

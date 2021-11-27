@@ -2,6 +2,7 @@ package com.zhaoming.test;
 
 import com.zhaoming.test.bean.Coordinate;
 import com.zhaoming.test.util.ImageUtils;
+import com.zhaoming.test.util.PathUtil;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -38,9 +39,10 @@ public class TestInput {
         //输入字符串
         keyPressString(robot,"Hello, I'm Robot");*/
         //findImageForScreen();
-        robot.mousePress(KeyEvent.BUTTON1_DOWN_MASK);
+        /*robot.mousePress(KeyEvent.BUTTON1_DOWN_MASK);
         robot.mouseMove(300,300);
-        robot.mouseRelease(KeyEvent.BUTTON1_DOWN_MASK);
+        robot.mouseRelease(KeyEvent.BUTTON1_DOWN_MASK);*/
+        System.out.println(PathUtil.getPath());
     }
 
     //Shift组合键

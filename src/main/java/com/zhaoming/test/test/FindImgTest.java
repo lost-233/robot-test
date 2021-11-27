@@ -5,6 +5,7 @@ package com.zhaoming.test.test;
 
 import com.zhaoming.test.bean.ImageXyBean;
 import com.zhaoming.test.util.ImageCognitionUtil;
+import com.zhaoming.test.util.PathUtil;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -21,7 +22,7 @@ import javax.imageio.ImageIO;
 public class FindImgTest {
 
 	public static void main(String[] args) {
-		findImageForScreen("E:\\robot-test/QQ截图20211125142759.png");
+		findImageForScreen(PathUtil.getPath()+"cmd/77.png");
 		//findImageForScreen("E:\\robot-test/QQ截图20211125140307.png");
 	}
 	
